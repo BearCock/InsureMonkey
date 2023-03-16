@@ -3,4 +3,8 @@
 3. Right-click + shift on the my_project folder and select Open PowerShell here
 4. Enter the following command in the PowerShell window: py manage.py runserver
 5. Open a web browser (tested on Google Chrome, Mozilla Firefox) and type http://localhost:8000/insuremonkey
- 
+
+Login details:
+Superadmin: superadmin@insuremonkey.cz, password: qwertz123
+User admin: houba@sea.com, password: 789
+User without privileges: rexik@seznam.cz, password: somethingelse
