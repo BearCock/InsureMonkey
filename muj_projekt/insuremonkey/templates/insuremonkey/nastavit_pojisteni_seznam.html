@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<a href= {% url "novy_pojistenec" %} >Nový pojištěnec</a><br><br>
+
+    {% for pojistenec in pojistenci %}
+        <a href={% url "pojistenec_detail" pojistenec.id %}> Jméno a příjmení: {{pojistenec.jmeno}} {{pojistenec.prijmeni}} <br> </a>
+    {% endfor %}
+{% endblock %}

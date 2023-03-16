@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="barevny_text">Pojistné události</h3>
+{% if user.is_admin %}
+    <a href= {% url "nova_pojistna_udalost" %}><button class="tlacitko_zelene_novy mx-auto">Nová pojistná událost</button></a>
+    <br>
+
+    <div class="container-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Číslo pojistné události:</th>
+                    <th>Pojištěnec:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pojistna_udalost in pojistne_udalosti %} <!--cyklus projde PU a výpíše je -->
+                    <tr>
+                        <td>
+                            <a href="{% url 'pojistna_udalost_detail' pojistna_udalost.pk %}"> {{pojistna_udalost.cislo_pojistne_udalosti}} </a>   <!--pk nastaven dle tabulky, jinak problém-->
+                        </td>
+                        <td>
+                            {{pojistna_udalost.pojistenec.jmeno}} {{pojistna_udalost.pojistenec.prijmeni}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endif %}
+
+{% endblock %}
+
+

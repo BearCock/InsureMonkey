@@ -1,0 +1,16 @@
+{% extends "base.html" %} <!-- rozširuje vzor -->
+{% load crispy_forms_tags %} <!-- načte tagy pro crispy forms -->
+{% block content %} <!-- vloží obsah do šablony -->
+
+<div class="col-md-6">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.jmeno_pojistence.as_hidden }}
+        {{ form.cislo_smlouvy|as_crispy_field }}
+        {{ form|crispy }} <!-- formulář crispy forms -->
+        <br>
+        <button class="tlacitko_zelene mx-auto" type="submit" name="save">Uložit</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="barevny_text">Registrace</h1>
+<hr>
+
+<div class="col-md-4">
+    <section class="login-form">
+        <form method="post" action="">
+           {% csrf_token %}
+           <div class="container-fluid">
+                {{form|crispy}} 
+                <br>
+                <button type="submit" class="tlacitko_zelene mx-auto" value="Login">Registrovat</button>
+           </div>
+        </form>
+    </section>
+</div>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+        <h3 class="barevny_text">Typ pojištění: {{ nastavit_pojisteni.pojisteni }}</h3>
+        <br>
+        <table class="table">
+                <tr>
+                  <td><strong>Čislo smlouvy:</td></strong>
+                  <td>{{ nastavit_pojisteni.cislo_smlouvy}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Předmět pojištění:</td></strong>
+                  <td>{{ nastavit_pojisteni.predmet_pojisteni}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Platnost od:</td></strong>
+                  <td>{{ nastavit_pojisteni.datum_zacatek}}</td>
+                </tr>
+                <tr>
+                        <td><strong>Platnost do:</td></strong>
+                        <td>{{ nastavit_pojisteni.datum_konec}}</td>
+                        </tr>
+                        <tr>
+                        <td><strong>Částka:</td></strong>
+                        <td>{{nastavit_pojisteni.castka }},-Kč</td>
+                        </tr>
+              
+        </table>
+        <form method="POST" class="soustava_tlacitek">
+                {% csrf_token %}
+                {% if user.is_admin %} 
+                        <button class="tlacitko_oranzove" name="edit">Editovat</button>
+                        <button class="tlacitko_cervene" name="delete">Odstranit pojištění</button>
+                {% endif %}
+        </form>
+
+{% endblock %}

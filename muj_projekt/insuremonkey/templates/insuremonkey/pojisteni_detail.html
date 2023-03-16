@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %} 
+    <h3 class="barevny_text"> {{ pojisteni.typ_pojisteni }}</h3>
+    <br>
+    {{ pojisteni.popis_pojisteni }} 
+    <br>
+    <br>
+
+    <form method="POST" class="soustava_tlacitek">
+    {% csrf_token %} 
+    <br>
+    {% if user.is_admin %} 
+        <button class="tlacitko_oranzove" name="edit">Editovat</button>
+        <button class="tlacitko_cervene" name="delete">Odstranit pojištění</button>
+    {% endif %}
+    </form>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+  
+  <h3 class="barevny_text"> {{ pojistenec.jmeno }} {{ pojistenec.prijmeni }} </h3>
+    <div class="grid-container">
+      <div class="grid-item">
+          {{ pojistenec.ulice }} <br> 
+          {{ pojistenec.mesto }} <br> 
+          {{ pojistenec.psc }} <br>
+      </div>
+      <div class="grid-item">
+          {{ pojistenec.email }} <br> 
+          {{ pojistenec.telefon }} <br>
+      </div>
+    </div>
+
+    <br>
+    <h5>Seznam smluvených pojištění:</h5>
+    {% if pojistenec.nastavitpojisteni_set.all %}
+        <table class="table">
+          <thead>
+            <tr>
+            <th>Pojištění</th>
+            <th>Částka</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pojisteni in pojistenec.nastavitpojisteni_set.all %}
+              <tr>
+                <td><a href="{% url 'nastavit_pojisteni_detail' pojisteni.pk %}">{{ pojisteni.pojisteni }}</a></td>
+                <td>{{ pojisteni.castka }},-Kč</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+      <p>Tento pojištěnec zatím nemá žádná smluvená pojištění.</p>
+    {% endif %}
+  <br>
+  
+  {% if user.is_authenticated %}
+      <H5>Pojistné události: </H5>
+      {% for pojistna_udalost in pojistenec.pojistnaudalost_set.all %}
+          <a href="{% url 'pojistna_udalost_detail' pojistna_udalost.pk %}">
+            Číslo pojistné události: {{pojistna_udalost.cislo_pojistne_udalosti}}</a>, {{pojistna_udalost.pojistna_udalost}} <br>
+      {% empty %}
+          Tento pojištěnec nemá žádné pojistné události.</li>
+          <br>
+      {% endfor %}
+  {% endif %}
+  <br>
+
+  <form method="POST" class="soustava_tlacitek">
+      {% csrf_token %}
+      {% if user.is_admin %} 
+          <a href="{% url 'nastavit_pojisteni' %}?pojistenec_id={{pojistenec.pk}}"><button class="tlacitko_zelene" type="button">Přidat pojištění</button></a>
+          <button class="tlacitko_oranzove" name="edit">Editovat pojištěnce</button>
+          <button class="tlacitko_cervene" name="delete">Odstranit pojištěnce</button>
+      {% endif %}
+  </form>
+    
+{% endblock %}

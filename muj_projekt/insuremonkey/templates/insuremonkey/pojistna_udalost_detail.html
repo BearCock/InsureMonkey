@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4 class="barevny_text mx-centre">Číslo pojistné události: {{pojistnaudalost.cislo_pojistne_udalosti }}</h4>
+<br>
+<table class="table">
+  <tr>
+    <td><strong>Pojištěnec:</td></strong>
+    <td>{{pojistnaudalost.pojistenec.jmeno}} {{pojistnaudalost.pojistenec.prijmeni}}</td>
+  </tr>
+  <tr>
+    <td><strong>Pojistná událost:</td></strong>
+    <td>{{pojistnaudalost.pojistna_udalost}}</td>
+  </tr>
+  <tr>
+    <td><strong>Vyplacená částka:</td></strong>
+    <td>{{pojistnaudalost.vyplacena_castka}},-Kč</td>
+  </tr>
+</table>
+
+<form class="soustava_tlacitek" method="POST">
+{% csrf_token %}
+{% if user.is_admin %} 
+  <button class="tlacitko_oranzove" name="edit">Editovat</button>
+  <button class="tlacitko_cervene" name="delete">Odstranit</button>
+{% endif %}
+</form>
+
+{% endblock %}
+

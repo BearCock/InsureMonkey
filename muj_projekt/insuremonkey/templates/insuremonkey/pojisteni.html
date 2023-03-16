@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="barevny_text">Pojištění</h3>
+{% if user.is_admin %}
+    <a href={% url "nove_pojisteni" %}><button class="tlacitko_zelene_novy">Nové pojištění</button></a>
+{% endif %}
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th colspan="1">Typ pojištění:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pojisteni in pojisteni %}
+            <tr>
+                <td>
+                    <a href={% url "pojisteni_detail" pojisteni.id %}>{{pojisteni.typ_pojisteni}}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+

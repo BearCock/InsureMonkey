@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="barevny_text">Pojištěnci</h3>
+
+{% if user.is_admin %}
+    <a href= {% url "novy_pojistenec" %}><button class="tlacitko_zelene_novy" type="submit" name="save">Nový pojištěnec</button></a> 
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Jméno a příjmeni</th>
+                <th>Bydliště</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pojistenec in pojistenci %}
+                <tr>
+                    <td><a href={% url "pojistenec_detail" pojistenec.id %}>{{pojistenec.jmeno}} {{pojistenec.prijmeni}}</a></td>
+                    <td>{{pojistenec.ulice}}, {{pojistenec.mesto}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endif %}
+
+{% endblock %}

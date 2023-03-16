@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        {% load static %}
+        {% load bootstrap5 %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+        <meta charset="utf-8/">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jiří Mareček, BearCock Technology"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>InsureMonkey</title>
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                    <img src='/static/insuremonkey/logo.png' class="d-inline-block align-top" width="50" height="70" alt="InsureMonkey"/>
+                    <span class="ms-2 logo-text" style="font-size: 24px;">&lt;Insure/Monkey&gt;</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#obsah_navigacni_listy" aria-controls="obsah_navigacni_listy" aria-expanded="false" aria-label="Rozbalit navigaci">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse navbar-dark bg-dark" id="obsah_navigacni_listy">
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'pojistenci' %}">Pojištěnci</a>
+                            </li>
+                        {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'pojisteni' %}">Pojištění</a>
+                            </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'pojistne_udalosti' %}">Pojistné události</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'o_aplikaci' %}">O aplikaci</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <span class="nav-link disabled">Uživatel: {{ request.user.email }}</span>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Odhlásit</a>
+                            </li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'registrace' %}">Registrovat</a>
+                            </li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Přihlásit</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <br>
+        {% if messages %}  
+            {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <strong><span style="color: rgb(255, 8, 0)">Error: {{message}}</span></strong>
+                {% elif message.tags == "info" %}
+                    <strong><span style="color: rgb(0, 110, 255)">info: {{message}}</span></strong>
+                {% else %}
+                    <strong><span style="color: rgb(9, 201, 9)">Zpráva: {{message}}</span></strong>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    
+        <div class="content">
+        {% block content %}
+
+        {% endblock %}
+        </div>
+            <footer>
+                Created by Jiří Mareček, BearCock Technology 2023©
+            </footer>
+    </body>
+    </html>
+
+    
